@@ -50,6 +50,10 @@ jobs:
         working-directory: services/${{ matrix.service }}
         run: npm run lint
 
+      - name: Run Tests
+        working-directory: services/${{ matrix.service }}
+        run: npm test
+
       - name: Build Docker Image
         run: docker build -t ${{ matrix.service }} ./services/${{ matrix.service }}
 
