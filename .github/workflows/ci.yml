@@ -20,8 +20,7 @@ jobs:
       matrix:
         service: [course-service, enroll-service]
 
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_dispatch' || matrix.service == github.event.inputs.service }}
+  runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -33,6 +32,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
+        if: ${{ github.event_name != 'workflow_dispatch' || matrix.service == github.event.inputs.service }}
         working-directory: services/${{ matrix.service }}
         run: |
           # Use npm ci when a lockfile exists for reproducible installs,
@@ -47,14 +47,17 @@ jobs:
           fi
 
       - name: Run Lint
+        if: ${{ github.event_name != 'workflow_dispatch' || matrix.service == github.event.inputs.service }}
         working-directory: services/${{ matrix.service }}
         run: npm run lint
 
       - name: Run Tests
+        if: ${{ github.event_name != 'workflow_dispatch' || matrix.service == github.event.inputs.service }}
         working-directory: services/${{ matrix.service }}
         run: npm test
 
       - name: Build Docker Image
+        if: ${{ github.event_name != 'workflow_dispatch' || matrix.service == github.event.inputs.service }}
         run: docker build -t ${{ matrix.service }} ./services/${{ matrix.service }}
 
   validate-kong:
