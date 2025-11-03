@@ -34,7 +34,17 @@ jobs:
 
       - name: Install Dependencies
         working-directory: services/${{ matrix.service }}
-        run: npm ci
+        run: |
+          # Use npm ci when a lockfile exists for reproducible installs,
+          # otherwise fall back to npm install to avoid CI failing for services
+          # that don't include a package-lock.json (common in small examples).
+          if [ -f package-lock.json ]; then
+            echo "package-lock.json found -> using npm ci"
+            npm ci
+          else
+            echo "No package-lock.json found -> falling back to npm install"
+            npm install
+          fi
 
       - name: Run Lint
         working-directory: services/${{ matrix.service }}
