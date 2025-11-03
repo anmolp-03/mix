@@ -1,0 +1,17 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: course-svc
+    url: http://course-service:7301
+    routes:
+      - name: course-route
+        paths:
+          - /courses
+
+  - name: enroll-svc
+    url: http://enroll-service:7302
+    routes:
+      - name: enroll-route
+        paths:
+          - /enroll

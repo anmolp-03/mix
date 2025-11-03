@@ -1,0 +1,22 @@
+version: "3.8"
+
+networks:
+  app-net:
+    external: true
+
+services:
+  kong:
+    image: kong:3.6
+    container_name: kong
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: "/etc/kong/kong.yaml"
+      KONG_PROXY_LISTEN: "0.0.0.0:8000"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+    volumes:
+      - ./kong.yaml:/etc/kong/kong.yaml:ro
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    networks:
+      - app-net

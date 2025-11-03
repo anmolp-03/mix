@@ -1,0 +1,8 @@
+{
+  "name": "enroll-service",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "echo 'No lint configured yet'"
+  }
+}

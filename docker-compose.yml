@@ -1,0 +1,24 @@
+version: "3.8"
+
+networks:
+  app-net:
+    name: app-net
+    driver: bridge
+    external: true
+
+services:
+  course-service:
+    build: ./services/course-service
+    container_name: course-service
+    ports:
+      - "7301:7301"
+    networks:
+      - app-net
+
+  enroll-service:
+    build: ./services/enroll-service
+    container_name: enroll-service
+    ports:
+      - "7302:7302"
+    networks:
+      - app-net
