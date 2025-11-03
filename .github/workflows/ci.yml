@@ -20,7 +20,7 @@ jobs:
       matrix:
         service: [course-service, enroll-service]
 
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
